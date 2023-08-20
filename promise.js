@@ -1,6 +1,35 @@
-const p = new Promise((resolve,reject)=>{
+console.log("BEFORE");
+
+
+getUser(1)
+.then((users) => getUserSubject(users.name))
+.then((sub) => getUserSubjectMarks(sub))
+.catch((err) => console.log(err.message))
+
+console.log("AFTER");
+
+function getUser(id){
+    return new Promise((resolve,reject) => {
+        setTimeout(()=>{
+            console.log("ASYNC OPERATION");
+            resolve({id:id,name:'NAMA'}) 
+        },2000);
+    });
+}
+
+function getUserSubject(name){
+    return new Promise((resolve,reject) => {
     setTimeout(()=>{
-        reject(new Error('message'))
+        console.log(['ENGLISH,HINDI,PUNJABI,URDU']);
+        resolve(['ENGLISH,HINDI,PUNJABI,URDU']) 
     },2000);
-})
-p.then((res) => console.log("RESULT ",res)).catch((err)=>console.log("ERROR",err.message))
+    });
+}
+function getUserSubjectMarks(sub){
+    return new Promise((resolve,reject) => {
+    setTimeout(()=>{
+        resolve(25) 
+    },2000);
+    });
+}
+
